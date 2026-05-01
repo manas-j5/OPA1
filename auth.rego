@@ -1,24 +1,27 @@
 package auth
 
-allow if{
+default allow = false
+
+# Admin → full access
+allow {
     input.user.role == "admin"
 }
 
 # Manager → read/write reports
-allow if{
+allow {
     input.user.role == "manager"
     input.resource == "reports"
     input.action == "read"
 }
 
-allow if{
+allow {
     input.user.role == "manager"
     input.resource == "reports"
     input.action == "write"
 }
 
 # User → read their own profile
-allow if{
+allow {
     input.user.role == "user"
     input.resource == "profile"
     input.action == "read"
